@@ -2824,6 +2824,7 @@ GameObject:
   - component: {fileID: 1814475294}
   - component: {fileID: 1814475296}
   - component: {fileID: 1814475295}
+  - component: {fileID: 1814475297}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Player
@@ -2878,7 +2879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 7
-  maxHealth: 100
+  maxHealth: 50
   healthBarFill: {fileID: 856517180}
 --- !u!114 &1814475294
 MonoBehaviour:
@@ -2960,6 +2961,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stonePrefab: {fileID: 664083466011686922, guid: 02c216d768476f0428c6f54eff310377, type: 3}
   spawnHeightRange: 5
+--- !u!50 &1814475297
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814475290}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1985798616
 GameObject:
   m_ObjectHideFlags: 0

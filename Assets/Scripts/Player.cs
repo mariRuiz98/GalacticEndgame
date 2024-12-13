@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     [SerializeField] private float movementSpeed;
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth;
 
     private int currentHealth; 
 

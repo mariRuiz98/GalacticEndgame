@@ -13,6 +13,7 @@ public class Asteroid : MonoBehaviour
     private GameManager gameManager;
     
     private int damage; 
+    private bool isReleased = false; // Nueva bandera para evitar liberaciones múltiples
 
     private ObjectPool<Asteroid> myPool;
     
@@ -42,6 +43,12 @@ public class Asteroid : MonoBehaviour
         damage = newDamage;
     }
 
+    private void OnEnable()
+    {
+        isReleased = false; // Reiniciar la bandera al habilitar el asteroide
+        GetComponent<Collider2D>().enabled = true; // Reactivar el collider
+    }
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -50,6 +57,8 @@ public class Asteroid : MonoBehaviour
     // Aquí se detectan las colisiones
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isReleased) return; // Evitar colisiones múltiples
+
         // Si el asteroide colisiona con una bala
         if (other.CompareTag("Bullet"))
         {
@@ -71,11 +80,17 @@ public class Asteroid : MonoBehaviour
             }
 
             // Aumentar el puntaje del jugador
-            gameManager.AddPoint(1); 
+            gameManager.AddPoint(1);    
 
+            // Liberar la bala al Object Pool
             Bullet bullet = other.GetComponent<Bullet>();
-            bullet.MyPool.Release(bullet); // Liberar la bala al Object Pool
-            myPool.Release(this);
+            if (bullet != null) bullet.MyPool.Release(bullet); 
+            
+            isReleased = true; // Marcar como liberado
+            GetComponent<Collider2D>().enabled = false; // Desactivar el collider para evitar más colisiones //
+            myPool.Release(this); // Liberar el asteroide
+            //bullet.MyPool.Release(bullet); // Liberar la bala al Object Pool
+            //myPool.Release(this);
         }
         
         // Si el asteroide colisiona con el jugador

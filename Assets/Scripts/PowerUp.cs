@@ -10,11 +10,12 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("PowerUp activo");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+         Debug.Log($"Colisión detectada con: {other.gameObject.name}");
         // Si el asteroide colisiona con una bala
         if (other.CompareTag("Player"))
         {
@@ -27,7 +28,6 @@ public class PowerUp : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        Debug.Log("¡dentro POWER UP!");
     }
 
 

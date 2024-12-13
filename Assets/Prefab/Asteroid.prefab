@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d60d9d6fd66ff742b0ae0c79df373ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 7
   destructionClip: {fileID: 8300000, guid: 40bfd6aa6c2fcb14cb724914381b4196, type: 3}
   powerUpPrefab: {fileID: 359481772135152905, guid: 205fefe7f29e6df4bb6846a1ea021faa, type: 3}
 --- !u!82 &7909061364991364148
