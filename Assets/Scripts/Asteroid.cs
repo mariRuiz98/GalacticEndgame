@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class Asteroid : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private AudioClip destructionClip;
+    [SerializeField] private GameObject powerUpPrefab;
+    private AudioSource destructionSound;
+
     private GameManager gameManager;
     
     private int damage; 
@@ -42,7 +45,6 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-
     }
 
     // Aquí se detectan las colisiones
@@ -53,7 +55,24 @@ public class Asteroid : MonoBehaviour
         {
             // Sumar puntos al GameManager cuando un asteroide colisiona con una bala
             Debug.Log("¡Asteroide destruido!");
-            gameManager.AddPoint(1); // Aumentar el puntaje del jugador
+            
+            // Reproducir el sonido de destrucción
+            if (destructionSound != null)
+            {
+                Debug.Log("Reproduciendo sonido en la posición: " + transform.position);
+                destructionSound.PlayOneShot(destructionClip);
+            }
+
+            float probability = Random.value;
+
+            if (probability <= 0.3f)
+            {
+                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+            }
+
+            // Aumentar el puntaje del jugador
+            gameManager.AddPoint(1); 
+
             Bullet bullet = other.GetComponent<Bullet>();
             bullet.MyPool.Release(bullet); // Liberar la bala al Object Pool
             myPool.Release(this);
