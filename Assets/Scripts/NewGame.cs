@@ -7,7 +7,7 @@ public class NewGame : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;  // El AudioSource del botón que se va a clickear
     [SerializeField] private AudioClip clickSound;     // El clip de sonido a reproducir
-    [SerializeField] private string sceneToLoad = "LevelOne";
+    [SerializeField] private string sceneToLoad;
 
     public void StartNewGame() {
         // Iniciar la corutina para reproducir el sonido y luego cargar la escena

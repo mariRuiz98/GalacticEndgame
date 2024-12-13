@@ -54,6 +54,8 @@ public class Asteroid : MonoBehaviour
             // Sumar puntos al GameManager cuando un asteroide colisiona con una bala
             Debug.Log("¡Asteroide destruido!");
             gameManager.AddPoint(1); // Aumentar el puntaje del jugador
+            Bullet bullet = other.GetComponent<Bullet>();
+            bullet.MyPool.Release(bullet); // Liberar la bala al Object Pool
             myPool.Release(this);
         }
         

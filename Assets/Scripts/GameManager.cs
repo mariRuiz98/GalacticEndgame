@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float gameTime = 60;
+    // pauseMenu
+    [SerializeField] private GameObject pauseMenu;
+    private bool isPaused = false;
     private float timer;
     //private Text timerText;
     //private Text scoreText;
@@ -21,6 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timer = gameTime;
+        pauseMenu.SetActive(false);  // Ocultar el menú de pausa
     }
 
     // Update is called once per frame
@@ -37,6 +42,18 @@ public class GameManager : MonoBehaviour
             {
                 timer = 0;
                 EndGame();
+            }
+            // Detectar si se presiona Escape
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (isPaused)
+                {
+                    ResumeGame();
+                }
+                else
+                {
+                    PauseGame();
+                }
             }
         }
     }
@@ -59,5 +76,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("¡Tiempo agotado! Fin del juego.");
         SceneManager.LoadScene("EndGame");
         //Time.timeScale = 0;  // Esto pausa el juego
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        pauseMenu.SetActive(true);  // Mostrar el menú de pausa
+        Time.timeScale = 0; // Pausar el juego
+
+        // Habilitar el cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;  // Reanudar el juego
+
+        // Deshabilitar el cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
