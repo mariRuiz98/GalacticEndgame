@@ -15,12 +15,20 @@ public class GameManager : MonoBehaviour
     private float timer;
     //private Text timerText;
     //private Text scoreText;
-    private int score;
+    public int score { get; private set; }
+    public int stonesCaptured { get; private set; }
+    public int asteroidsDestroyed { get; private set; }
+    // private int score;
+    // private int stonesCaptured;
+    // private int asteroidsDestroyed;
+
+
     private bool isGameOver = false;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI stonesText;
     [SerializeField] private TextMeshProUGUI timeText;
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,21 +66,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Método para sumar los Asteroides destruidos
     public void AddPoint(int points)
     {
         score += points;
-        scoreText.text = "SCORE: " + score.ToString();
+        asteroidsDestroyed += points;
+        scoreText.text = "SCORE: " + asteroidsDestroyed.ToString();
     }
 
     public void AddStone(int stones)
     {
         score += stones;
-        stonesText.text = "STONES: " + score.ToString();
+        stonesCaptured += stones;
+        stonesText.text = "STONES: " + stonesCaptured.ToString();
     }
  
     public void EndGame()
     {
         isGameOver = true;
+        PlayerPrefs.SetInt("Score", score);
+        Debug.Log("Score: " + score);
+        PlayerPrefs.SetInt("StonesCaptured", stonesCaptured);
+        Debug.Log("Stones Captured: " + stonesCaptured);
+        PlayerPrefs.SetInt("AsteroidsDestroyed", asteroidsDestroyed);
+        Debug.Log("Asteroids Destroyed: " + asteroidsDestroyed);
+        PlayerPrefs.Save();
         Debug.Log("¡Tiempo agotado! Fin del juego.");
         SceneManager.LoadScene("EndGame");
         //Time.timeScale = 0;  // Esto pausa el juego
